@@ -24,7 +24,8 @@ interface PlannerLayoutProps {
 }
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: Home },
+  { name: "AI Assistant", href: "/", icon: Home },
+  { name: "Overview", href: "/dashboard", icon: Home },
   { name: "Daily Planner", href: "/daily", icon: Calendar },
   { name: "Weekly Planner", href: "/weekly", icon: CalendarDays },
   { name: "Monthly Planner", href: "/monthly", icon: CalendarDays },
