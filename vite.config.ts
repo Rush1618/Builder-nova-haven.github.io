@@ -27,7 +27,6 @@ export default defineConfig(({ mode }) => ({
         warn(warning);
       },
     },
-    // Suppress console warnings in production
     minify: mode === "production" ? "terser" : false,
     terserOptions:
       mode === "production"
@@ -36,11 +35,11 @@ export default defineConfig(({ mode }) => ({
               drop_console: true,
               drop_debugger: true,
             },
+            mangle: true,
           }
         : undefined,
   },
   define: {
-    // Suppress React warnings in production
     "process.env.NODE_ENV": JSON.stringify(mode),
   },
 }));
