@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { suppressDefaultPropsWarnings } from "@/lib/suppress-warnings";
 import OliveAIDashboard from "./pages/OliveAIDashboard";
 import AIDashboard from "./pages/AIDashboard";
 import Dashboard from "./pages/Dashboard";
@@ -14,6 +15,9 @@ import Goals from "./pages/Goals";
 import Timetable from "./pages/Timetable";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+
+// Suppress known third-party library warnings in development
+suppressDefaultPropsWarnings();
 
 const queryClient = new QueryClient();
 
