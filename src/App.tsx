@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import DailyPlanner from "./pages/DailyPlanner";
+import WeeklyPlanner from "./pages/WeeklyPlanner";
+import MonthlyPlanner from "./pages/MonthlyPlanner";
 import Tasks from "./pages/Tasks";
 import Goals from "./pages/Goals";
 import Timetable from "./pages/Timetable";
@@ -22,6 +24,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/daily" element={<DailyPlanner />} />
+          <Route path="/weekly" element={<WeeklyPlanner />} />
+          <Route path="/monthly" element={<MonthlyPlanner />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/goals" element={<Goals />} />
           <Route path="/timetable" element={<Timetable />} />

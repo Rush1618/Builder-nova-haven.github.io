@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { storage } from "@/lib/storage";
+import { initializeSampleData } from "@/lib/sample-data";
 import { Task, Goal, ClassSchedule, StudySession } from "@/types/planner";
 import {
   getUpcomingDeadlines,
@@ -34,6 +35,8 @@ export default function Dashboard() {
   const [studySessions, setStudySessions] = useState<StudySession[]>([]);
 
   useEffect(() => {
+    // Initialize sample data if needed
+    initializeSampleData();
     loadData();
   }, []);
 
