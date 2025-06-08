@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.studentplanner.ultimateplanner" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Ultimate Student Planner</name>
+    <description>
+        AI-powered study planner with syllabus analysis, CGPA tracking out of 10, and intelligent recommendations for students.
+    </description>
+    <author email="support@studentplanner.com" href="https://studentplanner.com">
+        Ultimate Student Planner Team
+    </author>
+    
+    <content src="index.html" />
+    
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="android-minSdkVersion" value="22" />
+    <preference name="android-targetSdkVersion" value="33" />
+    <preference name="BackupWebStorage" value="local" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
+    <preference name="FadeSplashScreenDuration" value="300" />
+    <preference name="SplashShowOnlyFirstTime" value="false" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="FadeSplashScreen" value="true" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
+    
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    
+    <!-- Allow access to all external URLs -->
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    
+    <!-- Android specific settings -->
+    <platform name="android">
+        <allow-intent href="market:*" />
+        
+        <!-- App Icons -->
+        <icon density="ldpi" src="public/icons/android/icon-36-ldpi.png" />
+        <icon density="mdpi" src="public/icons/android/icon-48-mdpi.png" />
+        <icon density="hdpi" src="public/icons/android/icon-72-hdpi.png" />
+        <icon density="xhdpi" src="public/icons/android/icon-96-xhdpi.png" />
+        <icon density="xxhdpi" src="public/icons/android/icon-144-xxhdpi.png" />
+        <icon density="xxxhdpi" src="public/icons/android/icon-192-xxxhdpi.png" />
+        
+        <!-- Splash Screens -->
+        <splash density="port-ldpi" src="public/splash/android/splash-200x320.png" />
+        <splash density="port-mdpi" src="public/splash/android/splash-320x480.png" />
+        <splash density="port-hdpi" src="public/splash/android/splash-480x800.png" />
+        <splash density="port-xhdpi" src="public/splash/android/splash-720x1280.png" />
+        <splash density="port-xxhdpi" src="public/splash/android/splash-960x1600.png" />
+        <splash density="port-xxxhdpi" src="public/splash/android/splash-1280x1920.png" />
+        
+        <!-- Android specific preferences -->
+        <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+        <preference name="AndroidLaunchMode" value="singleTop" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="public/icons/android/adaptive-icon.png" />
+        <preference name="AndroidWindowSplashScreenBackground" value="#0a0a0b" />
+        
+        <!-- Content Security Policy -->
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+        
+        <!-- Allow cleartext traffic for development -->
+        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+            <application android:usesCleartextTraffic="true" />
+        </edit-config>
+    </platform>
+    
+    <!-- iOS specific settings -->
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+        
+        <!-- App Icons -->
+        <icon height="57" src="public/icons/ios/icon-57.png" width="57" />
+        <icon height="114" src="public/icons/ios/icon-57-2x.png" width="114" />
+        <icon height="40" src="public/icons/ios/icon-40.png" width="40" />
+        <icon height="80" src="public/icons/ios/icon-40-2x.png" width="80" />
+        <icon height="50" src="public/icons/ios/icon-50.png" width="50" />
+        <icon height="100" src="public/icons/ios/icon-50-2x.png" width="100" />
+        <icon height="60" src="public/icons/ios/icon-60.png" width="60" />
+        <icon height="120" src="public/icons/ios/icon-60-2x.png" width="120" />
+        <icon height="180" src="public/icons/ios/icon-60-3x.png" width="180" />
+        <icon height="72" src="public/icons/ios/icon-72.png" width="72" />
+        <icon height="144" src="public/icons/ios/icon-72-2x.png" width="144" />
+        <icon height="76" src="public/icons/ios/icon-76.png" width="76" />
+        <icon height="152" src="public/icons/ios/icon-76-2x.png" width="152" />
+        <icon height="29" src="public/icons/ios/icon-small.png" width="29" />
+        <icon height="58" src="public/icons/ios/icon-small-2x.png" width="58" />
+        <icon height="87" src="public/icons/ios/icon-small-3x.png" width="87" />
+        
+        <!-- Splash Screens -->
+        <splash height="480" src="public/splash/ios/Default~iphone.png" width="320" />
+        <splash height="960" src="public/splash/ios/Default@2x~iphone.png" width="640" />
+        <splash height="1024" src="public/splash/ios/Default-Portrait~ipad.png" width="768" />
+        <splash height="2048" src="public/splash/ios/Default-Portrait@2x~ipad.png" width="1536" />
+        <splash height="768" src="public/splash/ios/Default-Landscape~ipad.png" width="1024" />
+        <splash height="1536" src="public/splash/ios/Default-Landscape@2x~ipad.png" width="2048" />
+        <splash height="1136" src="public/splash/ios/Default-568h@2x~iphone.png" width="640" />
+        <splash height="1334" src="public/splash/ios/Default-667h.png" width="750" />
+        <splash height="2208" src="public/splash/ios/Default-736h.png" width="1242" />
+        
+        <!-- iOS specific preferences -->
+        <preference name="StatusBarOverlaysWebView" value="false" />
+        <preference name="StatusBarBackgroundColor" value="#0a0a0b" />
+        <preference name="StatusBarStyle" value="lightcontent" />
+    </platform>
+    
+    <!-- Required Cordova Plugins -->
+    <plugin name="cordova-plugin-whitelist" spec="~1.3.0" />
+    <plugin name="cordova-plugin-splashscreen" spec="~6.0.0" />
+    <plugin name="cordova-plugin-statusbar" spec="~3.0.0" />
+    <plugin name="cordova-plugin-device" spec="~2.1.0" />
+    <plugin name="cordova-plugin-network-information" spec="~3.0.0" />
+    <plugin name="cordova-plugin-file" spec="~7.0.0" />
+    <plugin name="cordova-plugin-file-transfer" spec="~1.7.1" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~5.0.0" />
+    <plugin name="cordova-plugin-camera" spec="~6.0.0" />
+    <plugin name="cordova-plugin-media-capture" spec="~4.0.0" />
+    <plugin name="cordova-plugin-local-notification" spec="~0.9.0" />
+    <plugin name="cordova-plugin-vibration" spec="~3.1.1" />
+    <plugin name="cordova-plugin-androidx-adapter" spec="~1.1.3" />
+    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline';
+        style-src 'self' 'unsafe-inline';
+        media-src *;
+        img-src 'self' data: content:;
+        script-src 'self' 'unsafe-inline' 'unsafe-eval';
+        connect-src 'self' https://api.* ws: wss:;
+    " />
+    
+    <!-- Global Configuration -->
+    <preference name="Orientation" value="portrait" />
+    <preference name="EnableViewportScale" value="false" />
+    <preference name="MediaPlaybackRequiresUserAction" value="false" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
+    <preference name="BackgroundColor" value="0x0a0a0b" />
+    <preference name="HideKeyboardFormAccessoryBar" value="true" />
+    <preference name="KeyboardDisplayRequiresUserAction" value="true" />
+    
+</widget>

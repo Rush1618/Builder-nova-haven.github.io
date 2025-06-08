@@ -1,5 +1,8 @@
 {
-  "name": "fusion-starter",
+  "name": "ultimate-student-planner",
+  "version": "1.0.0",
+  "description": "AI-powered study planner with syllabus analysis, CGPA tracking, and stock market guidance",
+  "main": "public/electron.js",
   "private": true,
   "type": "module",
   "scripts": {
@@ -7,7 +10,19 @@
     "build": "vite build",
     "test": "vitest --run",
     "format.fix": "prettier --write .",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "electron": "electron public/electron.js",
+    "electron-dev": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && electron public/electron.js\"",
+    "electron-build": "npm run build && electron-builder",
+    "build-windows": "npm run build && electron-builder --windows",
+    "build-linux": "npm run build && electron-builder --linux",
+    "build-mac": "npm run build && electron-builder --mac",
+    "build-all": "npm run build && electron-builder --windows --linux --mac",
+    "cordova-init": "cordova create mobile com.studentplanner.app \"Ultimate Student Planner\"",
+    "build-android": "npm run build && cordova build android",
+    "build-ios": "npm run build && cordova build ios",
+    "run-android": "cordova run android",
+    "run-ios": "cordova run ios"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -78,6 +93,115 @@
     "tailwindcss": "^3.4.11",
     "typescript": "^5.5.3",
     "vite": "^6.2.2",
-    "vitest": "^3.1.4"
-  }
+    "vitest": "^3.1.4",
+    "electron": "^25.3.0",
+    "electron-builder": "^24.6.3",
+    "electron-is-dev": "^2.0.0",
+    "concurrently": "^8.2.0",
+    "wait-on": "^7.0.1",
+    "cordova": "^12.0.0"
+  },
+  "build": {
+    "appId": "com.studentplanner.ultimateplanner",
+    "productName": "Ultimate Student Planner",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "dist/**/*",
+      "public/electron.js",
+      "node_modules/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "public/icons",
+        "to": "icons",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "public/icons/icon.ico",
+      "publisherName": "Ultimate Student Planner",
+      "verifyUpdateCodeSignature": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Ultimate Student Planner"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "public/icons/icon.icns",
+      "category": "public.app-category.education"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "public/icons/icon.png",
+      "category": "Education"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "your-github-username",
+      "repo": "ultimate-student-planner"
+    }
+  },
+  "author": {
+    "name": "Ultimate Student Planner Team",
+    "email": "support@studentplanner.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/ultimate-student-planner.git"
+  },
+  "keywords": [
+    "education",
+    "study-planner",
+    "ai-assistant",
+    "cgpa-tracker",
+    "student-app",
+    "syllabus-analyzer",
+    "stock-tracking"
+  ]
 }
