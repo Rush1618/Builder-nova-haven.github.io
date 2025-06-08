@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AIChatbot from "@/components/planner/AIChatbot";
+import FourYearDashboard from "@/components/planner/FourYearDashboard";
 import { SyllabusParser } from "@/lib/syllabus-parser";
 import { MarksCalculator } from "@/lib/marks-calculator";
 import { ParsedSyllabus, Subject, MarksBreakdown } from "@/types/syllabus";
@@ -78,10 +79,20 @@ export default function OliveAIDashboard() {
     },
   ];
 
-  // Today's date cards
-  const today = new Date();
+  // Real dynamic dates - tracks actual current date
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const today = currentDate;
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
+
+  // Update date every minute to keep it current
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentDate(new Date());
+    }, 60000); // Update every minute
+
+    return () => clearInterval(timer);
+  }, []);
 
   // Mock data matching the Olive Notion design exactly
   const wednesdayTasks = [
@@ -153,15 +164,23 @@ export default function OliveAIDashboard() {
     },
   ];
 
-  const weeklyTodos = [
-    "Submit Math Assignment (Internal: 10 marks)",
-    "Complete Chemistry Lab Report (Internal: 15 marks)",
-    "Database Project Phase 2 (Internal: 20 marks)",
-    "Network Topology Design (External prep)",
-    "Study for Mid-semester Exams",
-    "Update CGPA tracker",
-    "Review weak topics in Computer Networks",
-  ];
+  // Generate weekly todos based on current date
+  const getWeeklyTodos = () => {
+    const currentWeek = Math.ceil(today.getDate() / 7);
+    const month = today.toLocaleDateString("en-US", { month: "long" });
+
+    return [
+      `Submit assignments due this week (Week ${currentWeek} of ${month})`,
+      "Complete pending lab reports (Internal Assessment)",
+      "Prepare for upcoming exams and tests",
+      "Update study progress and CGPA tracker",
+      "Review weak subjects identified by AI",
+      "Complete project milestones on schedule",
+      `Plan next week's study schedule`,
+    ];
+  };
+
+  const weeklyTodos = getWeeklyTodos();
 
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -258,6 +277,13 @@ export default function OliveAIDashboard() {
                 Marks & CGPA
               </TabsTrigger>
               <TabsTrigger
+                value="four-year"
+                className="data-[state=active]:bg-transparent data-[state=active]:text-green-400 data-[state=active]:border-b-2 data-[state=active]:border-green-400 rounded-none"
+              >
+                <TrendingUp className="w-4 h-4 mr-2" />
+                4-Year Journey
+              </TabsTrigger>
+              <TabsTrigger
                 value="ai-chat"
                 className="data-[state=active]:bg-transparent data-[state=active]:text-green-400 data-[state=active]:border-b-2 data-[state=active]:border-green-400 rounded-none"
               >
@@ -332,10 +358,17 @@ export default function OliveAIDashboard() {
                     {today.getDate()}
                   </div>
                   <div className="text-sm text-white/90 uppercase tracking-wider font-medium">
-                    DEC
+                    {today
+                      .toLocaleDateString("en-US", { month: "short" })
+                      .toUpperCase()}
                   </div>
                   <div className="text-xs text-white/75 mt-3 uppercase font-semibold">
                     TODAY
+                  </div>
+                  <div className="text-xs text-white/60 mt-1">
+                    {today
+                      .toLocaleDateString("en-US", { weekday: "short" })
+                      .toUpperCase()}
                   </div>
                 </div>
 
@@ -345,13 +378,19 @@ export default function OliveAIDashboard() {
                     {tomorrow.getDate()}
                   </div>
                   <div className="text-sm text-white/90 uppercase tracking-wider font-medium">
-                    DEC
+                    {tomorrow
+                      .toLocaleDateString("en-US", { month: "short" })
+                      .toUpperCase()}
                   </div>
                   <div className="text-xs text-white/75 mt-3 uppercase font-semibold">
                     TOMORROW
                   </div>
+                  <div className="text-xs text-white/60 mt-1">
+                    {tomorrow
+                      .toLocaleDateString("en-US", { weekday: "short" })
+                      .toUpperCase()}
+                  </div>
                 </div>
-
                 {/* CGPA Card */}
                 <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-gray-800/50">
                   <div className="text-center">
@@ -379,16 +418,16 @@ export default function OliveAIDashboard() {
               {/* Center Column - Task Lists */}
               <div className="col-span-7 space-y-6">
                 <div className="grid grid-cols-2 gap-6">
-                  {/* Wednesday Tasks */}
+                  {/* Today's Tasks */}
                   <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-gray-800/50">
                     <div className="flex items-center gap-3 mb-6">
                       <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                       <h3 className="text-white font-semibold text-lg">
-                        Wednesday
+                        {today.toLocaleDateString("en-US", { weekday: "long" })}
                       </h3>
                     </div>
                     <div className="space-y-4">
-                      {wednesdayTasks.map((task) => (
+                      {todaysTasks.map((task) => (
                         <div
                           key={task.id}
                           className="flex items-center gap-4 group"
@@ -419,16 +458,18 @@ export default function OliveAIDashboard() {
                     </div>
                   </div>
 
-                  {/* Thursday Tasks */}
+                  {/* Tomorrow's Tasks */}
                   <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-gray-800/50">
                     <div className="flex items-center gap-3 mb-6">
                       <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                       <h3 className="text-white font-semibold text-lg">
-                        Thursday
+                        {tomorrow.toLocaleDateString("en-US", {
+                          weekday: "long",
+                        })}
                       </h3>
                     </div>
                     <div className="space-y-4">
-                      {thursdayTasks.map((task) => (
+                      {tomorrowsTasks.map((task) => (
                         <div
                           key={task.id}
                           className="flex items-center gap-4 group"
@@ -753,6 +794,12 @@ export default function OliveAIDashboard() {
                 </CardContent>
               </Card>
             </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="four-year" className="m-0 p-8">
+          <div className="max-w-7xl mx-auto">
+            <FourYearDashboard />
           </div>
         </TabsContent>
 
