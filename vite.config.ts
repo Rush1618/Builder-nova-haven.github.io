@@ -14,4 +14,33 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      onwarn(warning, warn) {
+        // Suppress defaultProps warnings from recharts in production builds
+        if (
+          warning.code === "PLUGIN_WARNING" &&
+          warning.message.includes("defaultProps")
+        ) {
+          return;
+        }
+        warn(warning);
+      },
+    },
+    // Suppress console warnings in production
+    minify: mode === "production" ? "terser" : false,
+    terserOptions:
+      mode === "production"
+        ? {
+            compress: {
+              drop_console: true,
+              drop_debugger: true,
+            },
+          }
+        : undefined,
+  },
+  define: {
+    // Suppress React warnings in production
+    "process.env.NODE_ENV": JSON.stringify(mode),
+  },
 }));
