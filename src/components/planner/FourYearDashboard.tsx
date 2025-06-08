@@ -270,8 +270,18 @@ export default function FourYearDashboard() {
               <ResponsiveContainer width="100%" height={300}>
                 <AreaChart data={cgpaData}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="semester" />
-                  <YAxis domain={[0, 10]} />
+                  <XAxis
+                    dataKey="semester"
+                    axisLine={true}
+                    tickLine={true}
+                    tick={true}
+                  />
+                  <YAxis
+                    domain={[0, 10]}
+                    axisLine={true}
+                    tickLine={true}
+                    tick={true}
+                  />
                   <Tooltip
                     labelFormatter={(label) =>
                       cgpaData.find((d) => d.semester === label)?.name || label
