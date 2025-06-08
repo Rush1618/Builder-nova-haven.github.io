@@ -182,6 +182,200 @@ export default function OliveAIDashboard() {
 
   const weeklyTodos = getWeeklyTodos();
 
+  // Generate tasks based on current day of the week
+  const getDailyTasks = (dayOffset: number = 0) => {
+    const targetDate = new Date(today);
+    targetDate.setDate(targetDate.getDate() + dayOffset);
+    const dayOfWeek = targetDate.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+
+    const allTasks = {
+      0: [
+        // Sunday
+        {
+          id: "sun1",
+          title: "9:00 Review Weekly Progress",
+          completed: false,
+          tag: "Study",
+          internal: false,
+        },
+        {
+          id: "sun2",
+          title: "11:00 Plan Next Week",
+          completed: false,
+          tag: "Planning",
+          internal: false,
+        },
+        {
+          id: "sun3",
+          title: "14:00 Complete Pending Assignments",
+          completed: false,
+          tag: "Study",
+          internal: true,
+        },
+        {
+          id: "sun4",
+          title: "16:00 Revision Session",
+          completed: false,
+          tag: "Study",
+          internal: false,
+        },
+      ],
+      1: [
+        // Monday
+        {
+          id: "mon1",
+          title: "7:30 Advanced Mathematics",
+          completed: false,
+          tag: "Math",
+          internal: true,
+        },
+        {
+          id: "mon2",
+          title: "9:15 Computer Networks",
+          completed: false,
+          tag: "CS",
+          internal: false,
+        },
+        {
+          id: "mon3",
+          title: "11:00 Database Systems",
+          completed: false,
+          tag: "CS",
+          internal: false,
+        },
+        {
+          id: "mon4",
+          title: "13:30 Math Assignment Due",
+          completed: false,
+          tag: "Math",
+          internal: true,
+        },
+        {
+          id: "mon5",
+          title: "15:30 Study Group",
+          completed: false,
+          tag: "Study",
+          internal: false,
+        },
+      ],
+      2: [
+        // Tuesday
+        {
+          id: "tue1",
+          title: "8:00 Chemistry Lab",
+          completed: false,
+          tag: "Chemistry",
+          internal: true,
+        },
+        {
+          id: "tue2",
+          title: "10:00 Database Project Work",
+          completed: false,
+          tag: "CS",
+          internal: true,
+        },
+        {
+          id: "tue3",
+          title: "12:00 Math Tutorial",
+          completed: false,
+          tag: "Math",
+          internal: true,
+        },
+        {
+          id: "tue4",
+          title: "14:00 Network Theory",
+          completed: false,
+          tag: "CS",
+          internal: false,
+        },
+        {
+          id: "tue5",
+          title: "16:00 Chemistry Assignment",
+          completed: false,
+          tag: "Chemistry",
+          internal: true,
+        },
+      ],
+      3: wednesdayTasks, // Wednesday - use existing data
+      4: thursdayTasks, // Thursday - use existing data
+      5: [
+        // Friday
+        {
+          id: "fri1",
+          title: "7:30 Chemistry Practical",
+          completed: false,
+          tag: "Chemistry",
+          internal: true,
+        },
+        {
+          id: "fri2",
+          title: "9:30 Database Systems Exam",
+          completed: false,
+          tag: "CS",
+          internal: false,
+        },
+        {
+          id: "fri3",
+          title: "11:30 Math Problem Solving",
+          completed: false,
+          tag: "Math",
+          internal: false,
+        },
+        {
+          id: "fri4",
+          title: "13:30 Project Submission",
+          completed: false,
+          tag: "CS",
+          internal: true,
+        },
+        {
+          id: "fri5",
+          title: "15:30 Week Review",
+          completed: false,
+          tag: "Study",
+          internal: false,
+        },
+      ],
+      6: [
+        // Saturday
+        {
+          id: "sat1",
+          title: "9:00 Extra Math Practice",
+          completed: false,
+          tag: "Math",
+          internal: false,
+        },
+        {
+          id: "sat2",
+          title: "11:00 Lab Report Writing",
+          completed: false,
+          tag: "Chemistry",
+          internal: true,
+        },
+        {
+          id: "sat3",
+          title: "13:00 Computer Networks Study",
+          completed: false,
+          tag: "CS",
+          internal: false,
+        },
+        {
+          id: "sat4",
+          title: "15:00 Assignment Catch-up",
+          completed: false,
+          tag: "Study",
+          internal: true,
+        },
+      ],
+    };
+
+    return allTasks[dayOfWeek as keyof typeof allTasks] || [];
+  };
+
+  // Get today's and tomorrow's tasks dynamically
+  const todaysTasks = getDailyTasks(0);
+  const tomorrowsTasks = getDailyTasks(1);
+
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
