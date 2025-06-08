@@ -614,8 +614,18 @@ export default function FourYearDashboard() {
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={yearlyData}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="year" />
-                    <YAxis domain={[0, 10]} />
+                    <XAxis
+                      dataKey="year"
+                      axisLine={true}
+                      tickLine={true}
+                      tick={true}
+                    />
+                    <YAxis
+                      domain={[0, 10]}
+                      axisLine={true}
+                      tickLine={true}
+                      tick={true}
+                    />
                     <Tooltip />
                     <Bar dataKey="gpa" fill="#3b82f6" radius={[4, 4, 0, 0]} />
                   </BarChart>
