@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import OliveAIDashboard from "./pages/OliveAIDashboard";
 import AIDashboard from "./pages/AIDashboard";
 import Dashboard from "./pages/Dashboard";
 import DailyPlanner from "./pages/DailyPlanner";
@@ -23,7 +24,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<AIDashboard />} />
+          <Route path="/" element={<OliveAIDashboard />} />
+          <Route path="/ai" element={<AIDashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/daily" element={<DailyPlanner />} />
           <Route path="/weekly" element={<WeeklyPlanner />} />
